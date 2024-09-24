@@ -19,7 +19,7 @@ st.write("""
          """)
 
 df = pd.read_csv("df0.csv")
-st.dataframe(df, hide_index=True) 
+st.write(df.sample(100)) 
 
 st.write(""" 
         Tras el análisis de los datos de la muestra elegida nos percatamos un objetivo que podíamos conseguir es la **predicción de cual sería el mejor medicamento** considerancdo las caracterísitcas de _'Edad'_ y _'Padecimiento'_ de cada paciente.
@@ -32,7 +32,7 @@ st.code(code, language="python")
 
 df = df[['Age', 'Medication', 'Medical Condition']] 
 
-st.dataframe(df, hide_index=True) 
+st.write(df.sample(100)) 
 
 st.write(""" 
          Tras hacer algunas corridas de prueba con los datos originales de la muestra nos percatamos que la naturaleza sintética de los mismos no permitia una precisión adecuada para nuestro objetivo, es por ello que nos vimos en la necesidad de ajustar la cantidad de enfermedades de la muestra a las 10 más frecuentes
@@ -70,3 +70,8 @@ col1.write(X.head(15))
 
 col2.subheader("Variable objetivo de la muestra")
 col2.write(y.head(15))
+
+if 'clean_df' not in st.session_state:
+    st.session_state['clean_df'] = df_reduced
+    st.session_state['reduced_attr'] = X
+    st.session_state['reduced_tgt'] = y
